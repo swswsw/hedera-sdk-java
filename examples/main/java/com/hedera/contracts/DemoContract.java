@@ -76,8 +76,8 @@ public final class DemoContract {
 
 			
 			// due to bug, we have to alternating between gas.
-			long createGas = 5;
-			//long createGas = 32936 * 2;
+			//long createGas = 5;
+			long createGas = 32936 * 2;
 			
 			// create a contract
 			Thread.sleep(15000);
