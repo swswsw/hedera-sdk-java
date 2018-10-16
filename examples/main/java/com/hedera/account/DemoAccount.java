@@ -19,7 +19,7 @@ import com.hedera.utilities.ExampleUtilities;
 public final class DemoAccount {
 	
 	public static void main (String... arguments) throws Exception {
-		final Logger logger = LoggerFactory.getLogger(DemoAccount.class);
+//		final Logger logger = LoggerFactory.getLogger(DemoAccount.class);
 		
 		//DO NOT CHANGE THESE, CHANGE BELOW INSTEAD
 		boolean create = false; //OK
@@ -58,9 +58,9 @@ public final class DemoAccount {
 	    	
 	    	account = AccountCreate.create(account, newAccountKey,100000);
 	    	if (account == null) {
-    			logger.info("*******************************************");
-    			logger.info("FIRST ACCOUNT CREATE FAILED");
-    			logger.info("*******************************************");
+//    			logger.info("*******************************************");
+//    			logger.info("FIRST ACCOUNT CREATE FAILED");
+//    			logger.info("*******************************************");
     			throw new Exception("Account create failure");
 	    	} else {
 	    		if (getTXRecord) {
@@ -77,17 +77,20 @@ public final class DemoAccount {
 	    		// get balance for the account
 	    		if (balance) {
 	    			AccountGetBalance.getBalance(account);
+	    			Thread.sleep(1000);
 	    		}
 	    	}
+	    	Thread.sleep(1000);
 
 	        if (send) {
 		    	accountXferTo = AccountCreate.create(accountXferTo, accountXferToKey, 10000);
 		    	if (accountXferTo == null) {
-	    			logger.info("*******************************************");
-	    			logger.info("SECOND ACCOUNT CREATE FAILED");
-	    			logger.info("*******************************************");
+//	    			logger.info("*******************************************");
+//	    			logger.info("SECOND ACCOUNT CREATE FAILED");
+//	    			logger.info("*******************************************");
 	    			throw new Exception("Account create failure");
 		    	}
+		    	Thread.sleep(1000);
 	    	}
 	    	
 	    	if (account != null) {
@@ -95,6 +98,7 @@ public final class DemoAccount {
 		        // get balance for the account
 		    	if (balance) {
 		    		AccountGetBalance.getBalance(account);
+		    		Thread.sleep(1000);
 		    	}
 		
 				// send some crypto
@@ -104,10 +108,12 @@ public final class DemoAccount {
 				// get balance for the account
 		    	if (balance) {
 		    		AccountGetBalance.getBalance(account);
+		    		Thread.sleep(1000);
 		    	}
 				// get account info
 		    	if (info) {
 		    		AccountGetInfo.getInfo(account);
+		    		Thread.sleep(1000);
 		    	}
 		
 				// update the account
@@ -141,9 +147,9 @@ public final class DemoAccount {
 		    		if (account != null) {
 		    			AccountGetInfo.getInfo(account);
 		    		} else {
-		    			logger.info("*******************************************");
-		    			logger.info("ACCOUNT UPDATE FAILED - account is now null");
-		    			logger.info("*******************************************");
+//		    			logger.info("*******************************************");
+//		    			logger.info("ACCOUNT UPDATE FAILED - account is now null");
+//		    			logger.info("*******************************************");
 		    		}
 		    	}
 		
@@ -159,10 +165,11 @@ public final class DemoAccount {
 			        // add a claim
 			        if (AccountAddClaim.addClaim(account,claim, claimKeyPair)) {
 			        }
+			        Thread.sleep(1000);
 		    	} else if (account == null) {
-	    			logger.info("*******************************************");
-	    			logger.info("ACCOUNT object is null, skipping claim tests");
-	    			logger.info("*******************************************");
+//	    			logger.info("*******************************************");
+//	    			logger.info("ACCOUNT object is null, skipping claim tests");
+//	    			logger.info("*******************************************");
 		    	}
 	    	}
     	}	    	

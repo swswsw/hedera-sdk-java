@@ -14,16 +14,20 @@ import com.hedera.sdk.contract.HederaContract;
 import com.hedera.sdk.transaction.HederaTransactionResult;
 
 public final class ContractCreate {
-	public static HederaContract create(HederaContract contract, HederaFileID fileID, long initialBalance) throws Exception {
-		return create(contract, fileID, initialBalance, new byte[0]); 
+	public static HederaContract create(HederaContract contract, HederaFileID fileID, long initialBalance, long gas) throws Exception {
+		return create(contract, fileID, initialBalance, new byte[0], gas); 
 	}
 	
-	public static HederaContract create(HederaContract contract, HederaFileID fileID, long initialBalance, byte[] constParams) throws Exception {
+	public static HederaContract create(HederaContract contract, HederaFileID fileID, long initialBalance) throws Exception {
+		return create(contract, fileID, initialBalance, new byte[0], 250000000l); 
+	}
+	
+	public static HederaContract create(HederaContract contract, HederaFileID fileID, long initialBalance, byte[] constParams, long gas) throws Exception {
 		final Logger logger = LoggerFactory.getLogger(HederaContract.class);
 		// new contract
 		long shardNum = 0;
 		long realmNum = 0;
-		long gas = 250000000l;
+		//long gas = 250000000l;
 		byte[] constructorParameters = constParams; 
 		HederaDuration autoRenewPeriod = new HederaDuration(60, 10);
 

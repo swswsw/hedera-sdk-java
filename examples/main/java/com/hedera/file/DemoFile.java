@@ -126,10 +126,12 @@ public final class DemoFile {
 					"-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789" + 
 					"-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789";
 			file = FileCreate.create(file, fileContents.getBytes());
+			Thread.sleep(1000);
 		}
         if (file != null) {
         	if (doGetInfo) {
         		FileGetInfo.getInfo(file);
+        		Thread.sleep(1000);
         	}
         	if (doAppend) {
 	    		// append to a file
@@ -141,6 +143,7 @@ public final class DemoFile {
         	}
         	if (doUpdate) {
         		file = FileUpdate.update(file, 10, 2, "Updated contents".getBytes());
+        		Thread.sleep(1000);
 	    		// get file contents
 	        	if (doGetContents) {
 	        		FileGetContents.getContents(file);
@@ -149,14 +152,17 @@ public final class DemoFile {
     		// get file contents
         	if (doGetContents) {
         		FileGetContents.getContents(file);
+        		Thread.sleep(1000);
         	}
     		// get file info
         	if (doGetInfo) {
         		FileGetInfo.getInfo(file);
+        		Thread.sleep(1000);
         	}
     		// delete the file
         	if (doDelete) {
         		FileDelete.delete(file);
+        		Thread.sleep(1000);
         	}
         }
 	}

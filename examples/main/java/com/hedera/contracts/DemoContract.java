@@ -37,7 +37,8 @@ public final class DemoContract {
 
 		// create an account
 		HederaCryptoKeyPair newAccountKey = new HederaCryptoKeyPair(KeyType.ED25519);
-		account = AccountCreate.create(account, newAccountKey, 550000000000l);
+		account = AccountCreate.create(account, newAccountKey, 658720000l);
+		Thread.sleep(15000);
 		
 		if (account != null) {
 			// the paying account is now the new account
@@ -64,15 +65,24 @@ public final class DemoContract {
 		    byte[] fileContents = buffer.toByteArray();
 		    
 			// create a file with contents
+		    Thread.sleep(15000);
 			file = FileCreate.create(file, fileContents);
+			Thread.sleep(15000);
 
 			// new contract object
 			HederaContract contract = new HederaContract();
 			// setup transaction/query defaults (durations, etc...)
 			contract.txQueryDefaults = txQueryDefaults;
 
+			
+			// due to bug, we have to alternating between gas.
+			long createGas = 5;
+			//long createGas = 32936 * 2;
+			
 			// create a contract
-			contract = ContractCreate.create(contract, file.getFileID(), 0);
+			Thread.sleep(15000);
+			contract = ContractCreate.create(contract, file.getFileID(), 0, createGas);
+			Thread.sleep(15000);
 			//contract = create(contract, file.getFileID(), 1);
 			if (contract != null) {
 				// update the contract
@@ -80,12 +90,15 @@ public final class DemoContract {
 				HederaDuration autoRenewDuration = new HederaDuration(10, 20);
 				
 				contract = ContractUpdate.update(contract, expirationTime, autoRenewDuration);
+				Thread.sleep(15000);
 				
 				if (contract != null) {
 					// getinfo
 					ContractGetInfo.getInfo(contract);
+					Thread.sleep(15000);
 					// get bytecode
 					ContractGetBytecode.getByteCode(contract);
+					Thread.sleep(15000);
 					// call
 					final String SC_SET_ABI = "{\"constant\":false,\"inputs\":[{\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"set\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}";
 					long gas = 250000;
@@ -93,6 +106,7 @@ public final class DemoContract {
 					byte[] functionParameters = SoliditySupport.encodeSet(10,SC_SET_ABI);
 					
 					ContractCall.call(contract, gas, amount, functionParameters);
+					Thread.sleep(15000);
 					// call local
 					String SC_GET_ABI = "{\"constant\":true,\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}";
 					
