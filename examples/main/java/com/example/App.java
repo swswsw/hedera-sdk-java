@@ -61,11 +61,11 @@ import fi.iki.elonen.NanoHTTPD;
                 msg += "<p>Hello, " + parms.get("username") + "!</p>";
             }
             
-            try {
-            	demoContract();
-            } catch (Exception ex) {
-            	ex.printStackTrace();
-            }
+//            try {
+//            	demoContract();
+//            } catch (Exception ex) {
+//            	ex.printStackTrace();
+//            }
             
             return newFixedLengthResponse(msg + "</body></html>\n");
         }
