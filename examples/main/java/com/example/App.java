@@ -103,7 +103,8 @@ import fi.iki.elonen.NanoHTTPD;
     		byte[] functionParameters = SoliditySupport.encodeSet(10,SC_SET_ABI);
     		
     		ContractCall.call(contract, gas, amount, functionParameters);
-    		Thread.sleep(15000);
+    		Thread.sleep(1000);
+    		//Thread.sleep(15000);
         }
         
         private static void demoContract() throws Exception {
@@ -120,7 +121,7 @@ import fi.iki.elonen.NanoHTTPD;
     		// create an account
     		HederaCryptoKeyPair newAccountKey = new HederaCryptoKeyPair(KeyType.ED25519);
     		account = AccountCreate.create(account, newAccountKey, 658720000l);
-    		Thread.sleep(15000);
+    		//Thread.sleep(15000);
     		
     		if (account != null) {
     			// the paying account is now the new account
