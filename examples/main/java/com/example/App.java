@@ -1,6 +1,6 @@
 package com.example;
     
-    import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -61,13 +61,49 @@ import fi.iki.elonen.NanoHTTPD;
                 msg += "<p>Hello, " + parms.get("username") + "!</p>";
             }
             
-//            try {
-//            	demoContract();
-//            } catch (Exception ex) {
-//            	ex.printStackTrace();
-//            }
+            try {
+            	fulfillOrder();
+            	//demoContract();
+            } catch (Exception ex) {
+            	ex.printStackTrace();
+            }
             
             return newFixedLengthResponse(msg + "</body></html>\n");
+        }
+        
+        private static void fulfillOrder() throws Exception {
+        	// setup a set of defaults for query and transactions
+    		HederaTransactionAndQueryDefaults txQueryDefaults = new HederaTransactionAndQueryDefaults();
+    		txQueryDefaults = ExampleUtilities.getTxQueryDefaults();
+
+    		long shardNum = 0;
+    		long realmNum = 0;
+    		long contractNum = 1077;
+    		
+    		HederaContract contract = new HederaContract(shardNum, realmNum, contractNum);
+    		contract.txQueryDefaults = txQueryDefaults;
+
+    		
+    		final String SC_SET_ABI = "{\n" + 
+    				"		\"constant\": false,\n" + 
+    				"		\"inputs\": [\n" + 
+    				"			{\n" + 
+    				"				\"name\": \"orderNum\",\n" + 
+    				"				\"type\": \"uint256\"\n" + 
+    				"			}\n" + 
+    				"		],\n" + 
+    				"		\"name\": \"fullfillOrder\",\n" + 
+    				"		\"outputs\": [],\n" + 
+    				"		\"payable\": false,\n" + 
+    				"		\"stateMutability\": \"nonpayable\",\n" + 
+    				"		\"type\": \"function\"\n" + 
+    				"	}";
+    		long gas = 250000;
+    		long amount = 14;
+    		byte[] functionParameters = SoliditySupport.encodeSet(10,SC_SET_ABI);
+    		
+    		ContractCall.call(contract, gas, amount, functionParameters);
+    		Thread.sleep(15000);
         }
         
         private static void demoContract() throws Exception {
